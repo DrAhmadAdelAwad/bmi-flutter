@@ -24,20 +24,29 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   double value = 100;
-  int w = 50;
-  int a = 18;
+  int w = 70;
+  int a = 20;
+  int minAge = 18;
+  int maxAge = 100;
+  int minWeight = 50;
+  int maxWeight = 350;
   String? selectedGender;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 231, 224, 224),
       appBar: AppBar(
         title: Text(
           'BMI Calculator',
-          style: TextStyle(color: Colors.white, fontSize: 25),
+          style: TextStyle(
+            color: Color(0xFF081853),
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Color.fromARGB(255, 231, 224, 224),
       ),
       body: Column(
         children: [
@@ -57,8 +66,8 @@ class _Screen1State extends State<Screen1> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: selectedGender == 'Male'
-                              ? Colors.blueAccent
-                              : Colors.indigo,
+                              ? Color(0xFF081853)
+                              : Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,12 +75,18 @@ class _Screen1State extends State<Screen1> {
                             Icon(
                               Icons.male_rounded,
                               size: 80,
-                              color: Colors.white,
+                              color: selectedGender == "Male"
+                                  ? Colors.white
+                                  : Color(0xFF6d63ff),
                             ),
                             Text(
                               'Male',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: selectedGender == "Male"
+                                    ? Colors.white
+                                    : Color(0xFF6d63ff),
+                              ),
                             ),
                           ],
                         ),
@@ -91,7 +106,7 @@ class _Screen1State extends State<Screen1> {
                           borderRadius: BorderRadius.circular(10),
                           color: selectedGender == 'Female'
                               ? Colors.pinkAccent
-                              : Colors.pink,
+                              : Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -99,12 +114,17 @@ class _Screen1State extends State<Screen1> {
                             Icon(
                               Icons.female_rounded,
                               size: 80,
-                              color: Colors.white,
+                              color: selectedGender == "Female"
+                                  ? Colors.white
+                                  : Color(0xFF6d63ff),
                             ),
                             Text(
                               'Female',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: selectedGender == "Female"
+                                      ? Colors.white
+                                      : Color(0xFF6d63ff)),
                             ),
                           ],
                         ),
@@ -120,7 +140,7 @@ class _Screen1State extends State<Screen1> {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.deepOrange,
+                color: Colors.white,
               ),
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -128,13 +148,31 @@ class _Screen1State extends State<Screen1> {
                 children: [
                   Text(
                     "Height",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(fontSize: 20, color: Color(0xFF6d63ff)),
                   ),
-                  Text("${value.round()} Cm",
-                      style: TextStyle(fontSize: 40, color: Colors.white)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text("${value.round()}",
+                          style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: Color(
+                                0xFF6d63ff,
+                              ))),
+                      Text(" Cm",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(
+                                0xFF6d63ff,
+                              ))),
+                    ],
+                  ),
                   Slider(
-                    activeColor: Colors.green,
-                    inactiveColor: Colors.white,
+                    activeColor: Color(0xFF6d63ff),
+                    inactiveColor: Color(0xFFf4f3ff),
                     value: value,
                     onChanged: (double x) {
                       setState(() {
@@ -156,50 +194,55 @@ class _Screen1State extends State<Screen1> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Weight",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 20, color: Color(0xFF6d63ff)),
                           ),
                           Text("$w",
-                              style:
-                                  TextStyle(fontSize: 40, color: Colors.white)),
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(
+                                    0xFF6d63ff,
+                                  ))),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FloatingActionButton(
                                 mini: true,
                                 shape: StadiumBorder(),
-                                backgroundColor: Colors.white,
+                                backgroundColor: Color(0xFF081853),
                                 onPressed: () {
                                   setState(() {
-                                    w += 1;
+                                    w < maxWeight ? w++ : w;
                                   });
                                 },
                                 child: Icon(
                                   Icons.add,
                                   size: 30,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 ),
                               ),
                               SizedBox(width: 8),
                               FloatingActionButton(
-                                backgroundColor: Colors.white,
+                                backgroundColor: Color(0xFF081853),
                                 mini: true,
                                 shape: StadiumBorder(),
                                 onPressed: () {
                                   setState(() {
-                                    w -= 1;
+                                    w > minWeight ? w-- : w;
                                   });
                                 },
                                 child: Icon(
                                   Icons.remove,
                                   size: 30,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 ),
                               )
                             ],
@@ -212,50 +255,56 @@ class _Screen1State extends State<Screen1> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.lightGreen,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Age",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color(
+                                  0xFF6d63ff,
+                                )),
                           ),
                           Text("$a",
-                              style:
-                                  TextStyle(fontSize: 40, color: Colors.white)),
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF6d63ff))),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FloatingActionButton(
                                 mini: true,
                                 shape: StadiumBorder(),
-                                backgroundColor: Colors.white,
+                                backgroundColor: Color(0xFF081853),
                                 onPressed: () {
                                   setState(() {
-                                    a += 1;
+                                    a < maxAge ? a++ : a;
                                   });
                                 },
                                 child: Icon(
                                   Icons.add,
                                   size: 30,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 ),
                               ),
                               SizedBox(width: 8),
                               FloatingActionButton(
                                 mini: true,
                                 shape: StadiumBorder(),
-                                backgroundColor: Colors.white,
+                                backgroundColor: Color(0xFF081853),
                                 onPressed: () {
                                   setState(() {
-                                    a -= 1;
+                                    a > minAge ? a-- : a;
                                   });
                                 },
                                 child: Icon(
                                   Icons.remove,
                                   size: 30,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 ),
                               )
                             ],
@@ -272,7 +321,7 @@ class _Screen1State extends State<Screen1> {
             minWidth: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 10),
             onPressed: () {},
-            color: Colors.teal,
+            color: Color(0xFF6d63ff),
             shape: RoundedRectangleBorder(),
             child: Text(
               "Calculate BMI",
